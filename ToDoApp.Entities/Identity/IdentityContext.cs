@@ -14,11 +14,7 @@ namespace ToDoApp.Entities.Identity
         {
             return new IdentityContext();
         }
-        static IdentityContext()
-        {
-            Database.SetInitializer<IdentityContext>(null);
-        }
-
+ 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

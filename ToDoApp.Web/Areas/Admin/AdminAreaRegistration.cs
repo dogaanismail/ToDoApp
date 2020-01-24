@@ -15,9 +15,9 @@ namespace ToDoApp.Web.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+              "Admin_default",
+              "Admin/{controller}/{action}/{id}",
+               defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
         }
     }
