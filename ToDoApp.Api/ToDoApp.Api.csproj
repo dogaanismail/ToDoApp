@@ -261,19 +261,19 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ToDoApp\ToDoApp.Business\ToDoApp.Business.csproj">
+    <ProjectReference Include="..\ToDoApp.Business\ToDoApp.Business.csproj">
       <Project>{894E2D79-12C4-43D8-9E43-D094F40A3FD7}</Project>
       <Name>ToDoApp.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToDoApp\ToDoApp.DataDomain\ToDoApp.DataDomain.csproj">
+    <ProjectReference Include="..\ToDoApp.DataDomain\ToDoApp.DataDomain.csproj">
       <Project>{1EBB48EB-89B5-4DA8-ADD8-F425EA5F2F12}</Project>
       <Name>ToDoApp.DataDomain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToDoApp\ToDoApp.Entities\ToDoApp.Entities.csproj">
+    <ProjectReference Include="..\ToDoApp.Entities\ToDoApp.Entities.csproj">
       <Project>{F53BC67A-92CA-44DB-83A8-31B898768492}</Project>
       <Name>ToDoApp.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToDoApp\ToDoApp.loC\ToDoApp.loC.csproj">
+    <ProjectReference Include="..\ToDoApp.loC\ToDoApp.loC.csproj">
       <Project>{167C1694-30E0-4A86-839D-DB3FC3CFEB25}</Project>
       <Name>ToDoApp.loC</Name>
     </ProjectReference>

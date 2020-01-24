@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.DataAccess.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Web.Tests", "ToDoApp.Web.Tests\ToDoApp.Web.Tests.csproj", "{0F8CA97E-08DD-4134-A376-BC2A772F2AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Api", "..\ToDoApp.Api\ToDoApp.Api.csproj", "{248B6D92-875D-427A-85BE-741A5E16779C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Api", "ToDoApp.Api\ToDoApp.Api.csproj", "{248B6D92-875D-427A-85BE-741A5E16779C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
