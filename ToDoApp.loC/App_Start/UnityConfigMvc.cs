@@ -41,7 +41,9 @@ namespace ToDoApp.loC
 
         private static void RegisterTypes(IUnityContainer container)
         {
-            /* For more information about these implementations please check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
+            /* For more information about these implementations please 
+             * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
+
             container.RegisterType<IdentityContext>(new PerRequestLifetimeManager());
             container.RegisterType<ApplicationSignInManager>(new PerRequestLifetimeManager());
             container.RegisterType<ApplicationRoleManager>(new PerRequestLifetimeManager());
@@ -56,6 +58,9 @@ namespace ToDoApp.loC
 
             container.RegisterType<IUserStore<User>, UserStore<User>>(
                 new InjectionConstructor(typeof(IdentityContext)));
+
+            /* For more information about these implementations please 
+          * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
 
         }
 

@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using ToDoApp.Web.Models;
+using ToDoApp.Business.Concrete.IdentityManagers;
+using ToDoApp.Entities.Identity.Entities;
 using ToDoApp.Web.Providers;
 
 namespace ToDoApp.Web
@@ -38,11 +38,17 @@ namespace ToDoApp.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            /* For more information about these implementations please 
+             * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
 
-            // Enable the application to use a cookie to store information for the signed in user
+            ApplicationUserManager.DataProtectionProvider = app.GetDataProtectionProvider();
+            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
+            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationSignInManager>());
+            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationRoleManager>());
+
+            /* For more information about these implementations please 
+            * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -51,12 +57,11 @@ namespace ToDoApp.Web
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(20),
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User>(
+                        validateInterval: TimeSpan.FromMinutes(0),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
-            // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -66,28 +71,6 @@ namespace ToDoApp.Web
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
-
-            // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
-
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
-
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
-
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
         }
     }
 }
