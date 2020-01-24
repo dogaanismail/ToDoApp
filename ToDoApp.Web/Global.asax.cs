@@ -23,6 +23,7 @@ namespace ToDoApp.Web
 
             //Unity Settings
             UnityConfigMvc.RegisterComponents();
+           
         }
     }
 }

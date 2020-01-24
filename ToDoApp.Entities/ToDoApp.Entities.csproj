@@ -46,6 +46,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\ApplicationContext.cs" />
+    <Compile Include="EntityFramework\Tasks.cs" />
+    <Compile Include="EntityFramework\Users.cs" />
+    <Compile Include="EntityFramework\UserTasks.cs" />
     <Compile Include="Identity\Entities\Roles.cs" />
     <Compile Include="Identity\Entities\User.cs" />
     <Compile Include="Identity\Entities\UserRole.cs" />
@@ -65,7 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EntityFramework\" />
+    <ProjectReference Include="..\ToDoApp.Core\ToDoApp.Core.csproj">
+      <Project>{EFF1CF49-8B02-4AC7-9FE3-4DBD467CA380}</Project>
+      <Name>ToDoApp.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

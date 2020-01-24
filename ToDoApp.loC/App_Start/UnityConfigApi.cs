@@ -1,15 +1,11 @@
-using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using System;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 using ToDoApp.Business.Abstract;
 using ToDoApp.Business.Concrete.IdentityManagers;
 using ToDoApp.Business.Concrete.Managers;
-using ToDoApp.Business.Mappings.AutoMapper.Profiles;
 using ToDoApp.DataAccess.Abstract.EntityFramework;
 using ToDoApp.DataAccess.Concrete.EntityFramework;
 using ToDoApp.Entities.Identity;
@@ -17,27 +13,15 @@ using ToDoApp.Entities.Identity.Entities;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
-using Unity.Lifetime;
+using Unity.WebApi;
 
 namespace ToDoApp.loC
 {
-    /// <summary>
-    /// Specifies the Unity configuration for the main container.
-    /// </summary>
-    public static class UnityConfigMvc
+    public static class UnityConfigApi
     {
-
         public static void RegisterComponents()
         {
-            var container = new UnityContainer();
-            RegisterTypes(container);
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-            GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
-        }
-        public static void RegisterTypes(IUnityContainer container)
-        {
-            /* For more information about these implementations please 
-             * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
+			var container = new UnityContainer();
 
             container.RegisterType<IdentityContext>(new PerRequestLifetimeManager());
             container.RegisterType<ApplicationSignInManager>(new PerRequestLifetimeManager());
@@ -63,12 +47,14 @@ namespace ToDoApp.loC
 
             container.RegisterType<IUserTaskService, UserTaskManager>();
             container.RegisterType<IUserTaskDal, EfUserTaskDal>();
-        }
 
-        public static void BindInRequstScope<T1, T2>(this IUnityContainer container) where T2 : T1
-        {
-            container.RegisterType<T1, T2>(new HierarchicalLifetimeManager());
+            container.BindInRequstScope<ITaskService, TaskManager>();
+            container.BindInRequstScope<ITaskDal, EfTaskDal>();
+
+            container.BindInRequstScope<IUserTaskService, UserTaskManager>();
+            container.BindInRequstScope<IUserTaskDal, EfUserTaskDal>();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
         }
     }
 }
-

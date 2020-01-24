@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,7 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\EntityFramework\ITaskDal.cs" />
+    <Compile Include="Abstract\EntityFramework\IUserTaskDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfTaskDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserTaskDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToDoApp.Core\ToDoApp.Core.csproj">
+      <Project>{EFF1CF49-8B02-4AC7-9FE3-4DBD467CA380}</Project>
+      <Name>ToDoApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoApp.Entities\ToDoApp.Entities.csproj">
+      <Project>{F53BC67A-92CA-44DB-83A8-31B898768492}</Project>
+      <Name>ToDoApp.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

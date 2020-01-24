@@ -51,6 +51,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -197,7 +200,6 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaskController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2281,6 +2283,10 @@
     <ProjectReference Include="..\ToDoApp.Business\ToDoApp.Business.csproj">
       <Project>{894E2D79-12C4-43D8-9E43-D094F40A3FD7}</Project>
       <Name>ToDoApp.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoApp.Core\ToDoApp.Core.csproj">
+      <Project>{EFF1CF49-8B02-4AC7-9FE3-4DBD467CA380}</Project>
+      <Name>ToDoApp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToDoApp.DataDomain\ToDoApp.DataDomain.csproj">
       <Project>{1EBB48EB-89B5-4DA8-ADD8-F425EA5F2F12}</Project>

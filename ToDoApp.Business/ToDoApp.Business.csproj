@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -75,14 +78,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ITaskService.cs" />
+    <Compile Include="Abstract\IUserTaskService.cs" />
     <Compile Include="Concrete\IdentityManagers\ApplicationRoleManager.cs" />
     <Compile Include="Concrete\IdentityManagers\ApplicationSignInManager.cs" />
     <Compile Include="Concrete\IdentityManagers\ApplicationUserManager.cs" />
     <Compile Include="Concrete\IdentityManagers\EmailService.cs" />
     <Compile Include="Concrete\IdentityManagers\SmsService.cs" />
+    <Compile Include="Concrete\Managers\TaskManager.cs" />
+    <Compile Include="Concrete\Managers\UserTaskManager.cs" />
+    <Compile Include="Mappings\AutoMapper\Profiles\BusinessProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ToDoApp.Core\ToDoApp.Core.csproj">
+      <Project>{EFF1CF49-8B02-4AC7-9FE3-4DBD467CA380}</Project>
+      <Name>ToDoApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoApp.DataAccess\ToDoApp.DataAccess.csproj">
+      <Project>{C3EB09A7-A53D-4B35-972D-E508DF85AF18}</Project>
+      <Name>ToDoApp.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoApp.DataDomain\ToDoApp.DataDomain.csproj">
+      <Project>{1EBB48EB-89B5-4DA8-ADD8-F425EA5F2F12}</Project>
+      <Name>ToDoApp.DataDomain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToDoApp.Entities\ToDoApp.Entities.csproj">
       <Project>{F53BC67A-92CA-44DB-83A8-31B898768492}</Project>
       <Name>ToDoApp.Entities</Name>
@@ -92,8 +112,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
