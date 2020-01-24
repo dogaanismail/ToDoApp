@@ -1,4 +1,6 @@
-﻿namespace ToDoApp.Core.CrossCuttingConcers.Logging.Log4Net.Loggers
+﻿using log4net;
+
+namespace ToDoApp.Core.CrossCuttingConcers.Logging.Log4Net.Loggers
 {
     public class FileLogger : LoggerService
     {
