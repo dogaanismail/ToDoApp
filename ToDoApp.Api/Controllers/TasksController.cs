@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using ToDoApp.Business.Abstract;
+using ToDoApp.Core.Aspects.PostsSharp.CacheAspects;
+using ToDoApp.Core.CrossCuttingConcers.Caching.Microsoft;
 using ToDoApp.Core.Utilities.Mappings;
 using ToDoApp.DataDomain.Api;
 using ToDoApp.DataDomain.Dto;
@@ -29,6 +31,7 @@ namespace ToDoApp.Api.Controllers
 
         [Route("gettasks")]
         [HttpGet]
+        [CacheAspect(typeof(MemoryCacheManager), 30)]
         public List<TaskDto> GetTasks()
         {
             List<TaskDto> tasks = _taskService.GetTasks().Select(p => new TaskDto
@@ -38,7 +41,8 @@ namespace ToDoApp.Api.Controllers
                 TaskTitle = p.TaskTitle,
                 TaskDescription = p.TaskDescription,
                 Deadline = p.Deadline,
-                CreatedDate = p.CreatedDate
+                CreatedDate = p.CreatedDate,
+                IsCompleted = p.IsCompleted
             }).ToList();
 
             return tasks;
@@ -46,11 +50,37 @@ namespace ToDoApp.Api.Controllers
 
         [Route("gettaskbyid")]
         [HttpGet]
+        [CacheAspect(typeof(MemoryCacheManager), 30)]
         public Tasks GetTaskById(int id)
         {
             Tasks tasks = AutoMapperHelper.MapToSameType(_taskService.GetById(id));
 
             return tasks;
+        }
+
+        [Route("checktasks")]
+        [HttpGet]
+        public List<TaskDto> CheckTasks()
+        {
+            var result = _taskService.GetTasks().Where(x => x.Deadline.Value.Year == DateTime.Now.Year
+            && x.Deadline.Value.Month == DateTime.Now.Month
+            && x.Deadline.Value.Year == DateTime.Now.Year && x.IsCompleted == false).ToList();
+
+            if (result.Count > 0)
+            {
+                List<TaskDto> taks = result.Select(p => new TaskDto
+                {
+                    TaskId = p.TaskId,
+                    TaskName = p.TaskName,
+                    TaskTitle = p.TaskTitle,
+                    TaskDescription = p.TaskDescription,
+                    Deadline = p.Deadline,
+                    CreatedDate = p.CreatedDate
+                }).ToList();
+
+                return taks;
+            }
+            return null;
         }
 
         [Route("createtask")]
@@ -65,7 +95,8 @@ namespace ToDoApp.Api.Controllers
                     TaskTitle = model.TaskTitle,
                     TaskDescription = model.TaskDescription,
                     CreatedDate = DateTime.Now,
-                    Deadline = model.Deadline
+                    Deadline = model.Deadline,
+                    IsCompleted = false
                 };
 
                 _taskService.Create(newTask);
@@ -90,6 +121,7 @@ namespace ToDoApp.Api.Controllers
                 getTask.TaskDescription = model.TaskDescription;
                 getTask.ModifiedDate = DateTime.Now;
                 getTask.Deadline = model.Deadline;
+                getTask.IsCompleted = model.IsCompleted;
                 _taskService.Update(getTask);
                 return Ok(200);
             }

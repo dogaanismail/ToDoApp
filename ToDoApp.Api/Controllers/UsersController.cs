@@ -82,6 +82,7 @@ namespace ToDoApp.Api.Controllers
                     var user = await _userManager.FindByNameAsync(model.UserName);
                     //Adding a password to the user that has just been created.
                     var addResult = await _userManager.AddPasswordAsync(user.Id, model.Password);
+                    var roleResult = await _userManager.AddToRoleAsync(user.Id, "Admin");
 
                     if (result.Succeeded)
                     {

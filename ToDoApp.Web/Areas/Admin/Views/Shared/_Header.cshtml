@@ -37,8 +37,13 @@
                                 <a href="/Admin/User/Index?ID=@User.Identity.GetUserId()" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="/Admin/Account/LogOff" class="btn btn-default btn-flat">Sign out</a>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Sign Out</a>
+                                }
                             </div>
+
                         </li>
                     </ul>
                 </li>

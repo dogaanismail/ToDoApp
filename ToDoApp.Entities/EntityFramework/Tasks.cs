@@ -33,6 +33,8 @@ namespace ToDoApp.Entities.EntityFramework
 
         public DateTime? Deadline { get; set; }
 
+        public bool? IsCompleted { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserTasks> UserTasks { get; set; }
     }

@@ -10,5 +10,6 @@ namespace ToDoApp.DataDomain.Dto
         public string TaskDescription { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? Deadline { get; set; }
+        public bool?  IsCompleted { get; set; }
     }
 }

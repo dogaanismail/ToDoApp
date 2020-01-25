@@ -1,5 +1,5 @@
 ﻿
-                                                /* --------------------------           ANGULARJS CONTROLLERS ------------------------------------------------ */
+/* --------------------------           ANGULARJS CONTROLLERS ------------------------------------------------ */
 
 
 //Dashboard Controller
@@ -41,13 +41,18 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
                 TaskTitle: '',
                 TaskDescription: '',
                 Deadline: null,
-                CreatedDate: null
+                CreatedDate: null,
+                IsCompleted: false
             };
 
             $scope.message = "";
             //for display message of user   
             $scope.flgMessage = false;
-            $scope.getTasks();        
+            $scope.showCreate = false;
+            $scope.showEdit = false;
+            $scope.getTasks();
+            $scope.checkDeadlineTask();
+            $scope.selectDate = null;
         };
 
         //hide message
@@ -65,7 +70,6 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
         $scope.getTasks = function () {
             taskService.getTasks().then(function (result) {
                 $scope.lstTasks = result.data;
-                console.log(result);
             });
         };
 
@@ -77,52 +81,80 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
                 TaskTitle: '',
                 TaskDescription: '',
                 Deadline: null,
-                CreatedDate: null
+                CreatedDate: null,
+                IsCompleted: false
             };
         };
 
-        //Create Task
-        $scope.createTask = function (obj) {
-            $scope.hideMessage();
-
-            taskService.createTask(obj).then(function (result) {
-                if (result.data === 200) {
-                    $scope.flgMessage = true;
-                    $scope.message = "Task has been created successfully !";
-                    $("#message").addClass("alert alert-success");
-                    $("#icon").addClass("glyphicon glyphicon-ok");
-                    $scope.getTasks();
-                    $scope.reset();
-                }
-                else {
-                    $scope.flgMessage = true;
-                    $scope.message = result.data.message;
-                    $("#message").addClass("alert alert-danger");
-                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
-                }
+        $scope.checkDeadlineTask = function () {
+            taskService.checkTasks().then(function (result) {
+                $scope.deadlineTasks = result.data;
+                $('#alert-modal').modal();
+                $scope.showDeadline = true;
             });
         };
 
-        //Update Task
-        $scope.updateTask = function (obj) {
+        //Create Task
+        $scope.createUpdateTask = function (obj) {
             $scope.hideMessage();
+            var dateFromHTML = $('#Deadline').val();
+            obj.Deadline = dateFromHTML;
 
-            taskService.updateTask(obj).then(function (result) {
-                if (result.data === 200) {
-                    $scope.flgMessage = true;
-                    $scope.message = "Task has been updated successfully !";
-                    $("#message").addClass("alert alert-success");
-                    $("#icon").addClass("glyphicon glyphicon-ok");
-                    $scope.getTasks();
-                    $scope.reset();
-                }
-                else {
-                    $scope.flgMessage = true;
-                    $scope.message = result.data.message;
-                    $("#message").addClass("alert alert-danger");
-                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
-                }
-            });
+            if ($scope.showCreate === true) {
+                taskService.createTask(obj).then(function (result) {
+                    if (result.data === 200) {
+                        $scope.flgMessage = true;
+                        $scope.message = "Task has been created successfully !";
+                        $("#message").addClass("alert alert-success");
+                        $("#icon").addClass("glyphicon glyphicon-ok");
+                        $scope.getTasks();
+                        $scope.reset();
+                    }
+                    else {
+                        $scope.flgMessage = true;
+                        $scope.message = result.data.message;
+                        $("#message").addClass("alert alert-danger");
+                        $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                    }
+                });
+            }
+            else {
+                taskService.updateTask(obj).then(function (result) {
+                    if (result.data === 200) {
+                        $scope.flgMessage = true;
+                        $scope.message = "Task has been updated successfully !";
+                        $("#message").addClass("alert alert-success");
+                        $("#icon").addClass("glyphicon glyphicon-ok");
+                        $scope.getTasks();
+                        $scope.reset();
+                    }
+                    else {
+                        $scope.flgMessage = true;
+                        $scope.message = result.data.message;
+                        $("#message").addClass("alert alert-danger");
+                        $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                    }
+                });
+            }
+        }
+
+        $scope.editTask = function (obj) {
+            $scope.model.TaskId = obj.TaskId;
+            $scope.model.TaskName = obj.TaskName;
+            $scope.model.TaskTitle = obj.TaskTitle;
+            $scope.model.TaskDescription = obj.TaskDescription;
+            $scope.model.Deadline = obj.Deadline;
+            $scope.model.CreatedDate = obj.CreatedDate;
+            $scope.model.IsCompleted = obj.IsCompleted;
+            $scope.showCreate = false;
+            $scope.showEdit = true;
+            $scope.UserState = "> Update a task";
+        };
+
+        $scope.insertTask = function () {
+            $scope.showCreate = true;
+            $scope.showEdit = false;
+            $scope.UserState = "> Create a task";
         };
 
         //Delete Task

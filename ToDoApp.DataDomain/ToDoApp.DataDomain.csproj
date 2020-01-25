@@ -46,6 +46,7 @@
     <Compile Include="Api\TaskApi.cs" />
     <Compile Include="Api\UserApi.cs" />
     <Compile Include="Dto\DashboardDto.cs" />
+    <Compile Include="Dto\DeadlineTasksDto.cs" />
     <Compile Include="Dto\TaskDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Enumerations\StatusEnum.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="ViewModels\ForgotPassword.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\TasksViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

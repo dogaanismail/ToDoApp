@@ -20,7 +20,11 @@
         };
 
         this.deleteTask = function (obj) {
-            return $http.delete(urlBase + "deletetask" + '/', obj);
+            return $http.post(urlBase + "deletetask" + '/', obj);
+        };
+
+        this.checkTasks = function () {
+            return $http.get(urlBase + "checktasks");
         };
 
     }]);

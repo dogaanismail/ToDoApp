@@ -3,75 +3,195 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Areas/Admin/Content/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="~/Areas/Admin/Content/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
 
-    <div class="content-wrapper" ng-controller="TaskCtrl">
-            <section class="content-header">
-                <h1>
-                    Application Tasks
-                </h1>
-                <div class="text-right">
-                    <a href="/Admin/Dashboard/Index"><i class="fa fa-dashboard"></i> Home</a> >
-                    <a href="/Admin/Task/Index"> ToDo List</a>
-                    
-                </div>
+<script src="~/Areas/Admin/Content/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<div class="content-wrapper" ng-controller="TaskCtrl">
+    <section class="content-header">
+        <h1>
+            Application Tasks
+        </h1>
+        <div class="text-right">
+            <a href="/Admin/Dashboard/Index"><i class="fa fa-dashboard"></i> Home</a> >
+            <a href="/Admin/Task/Index"> ToDo List</a>
 
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <div class="row">
-
-                    <div ng-show="flgMessage" id="message" class="alert alert-dismissible">
-                        <button type="button" class="close" ng-click="hideMessage()" aria-hidden="true">&times;</button>
-                        <h4><i id="icon" class="icon fa "></i> Alert!</h4>
-                        {{message}}
-                    </div>
-
-                    <!-- TO DO List -->
-                    <div class="box box-primary" style="position: relative; left: 0px; top: 0px;">
-                        <div class="box-header ui-sortable-handle" style="cursor: move;">
-                            <i class="ion ion-clipboard"></i>
-
-                            <h3 class="box-title">To Do List</h3>
-
-                            <div class="box-tools pull-right">
-                                <ul class="pagination pagination-sm inline">
-                                    <li><a href="#">«</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-                            <ul class="todo-list ui-sortable">
-                                <li ng-repeat="task in lstTasks">
-                                    <span class="handle ui-sortable-handle">
-                                        <i class="fa fa-ellipsis-v"></i>
-                                        <i class="fa fa-ellipsis-v"></i>
-                                    </span>
-                                    <input type="checkbox" value="">
-                                    <span class="text">{{task.TaskTitle}}</span>
-                                    <small class="label label-info"><i class="fa fa-clock"></i> {{task.Deadline|date:'MMM d, yyyy'}}</small>
-                                    <div class="tools">
-                                        <i class="fa fa-edit"></i>
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer clearfix no-border">
-                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
-
-            </section>
-            <!-- /.content -->
         </div>
 
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
 
+            <div ng-show="flgMessage" id="message" class="alert alert-dismissible">
+                <button type="button" class="close" ng-click="hideMessage()" aria-hidden="true">&times;</button>
+                <h4><i id="icon" class="icon fa "></i> Alert!</h4>
+                {{message}}
+            </div>
+
+            <!-- TO DO List -->
+            <div class="box box-primary" style="position: relative; left: 0px; top: 0px;">
+                <div class="box-header ui-sortable-handle" style="cursor: move;">
+                    <i class="ion ion-clipboard"></i>
+
+                    <h3 class="box-title">To Do List</h3>
+
+                    <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+                    <ul class="todo-list ui-sortable">
+                        <li ng-repeat="task in lstTasks">
+                            <span class="handle ui-sortable-handle">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </span>
+                            <input type="checkbox" value="">
+                            <span class="text">{{task.TaskTitle}}</span>
+                            <small class="label label-info"><i class="fa fa-clock"></i> {{task.Deadline|date:'MMM d, yyyy'}}</small>
+                            <div class="tools">
+                                <i class="fa fa-edit" data-target="#modal-default" data-toggle="modal" ng-click="editTask(task)"></i>
+                                <i class="fa fa-trash" ng-click="deleteTask(task)"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix no-border">
+                    <button type="button" data-target="#modal-default" data-toggle="modal" ng-click="insertTask()" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+
+    </section>
+    <!-- /.content -->
+
+    <div class="modal fade" id="modal-default" padding-right: 17px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Task Create Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="form" id="form" novalidate ng-submit="formSubmit()">
+                        <div class="form-group">
+                            <label for="taskName" class="col-sm-2 control-label">Task Name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="model.TaskName" required class="form-control" id="TaskName" placeholder="Task Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskTitle" class="col-sm-2 control-label">Task Title</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="model.TaskTitle" required class="form-control" id="TaskTitle" placeholder="Task Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription" class="col-sm-2 control-label">Task Description</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="model.TaskDescription" required id="TaskDescription" placeholder="Task Description"></textarea>
+                            </div>
+                        </div>
+
+                        <!--DateTimePicker-->
+                        <div class="form-group">
+                            <label for="datepicker" class="col-sm-2 control-label">Deadline</label>
+
+                            <div class="col-sm-10">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock"></i>
+                                    </div>
+                                    <input type="text" datepicker="" ng-model="model.Deadline" placeholder="Deadline Picker !" class="form-control pull-right" id="Deadline">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="showEdit">
+                            <label for="IsCompleted" class="col-sm-2 control-label">Is Completed ? </label>
+                            <label class="switch">
+                                <input type="checkbox" ng-model="model.IsCompleted" value="{{model.IsCompleted}}" />
+                                <div class="slider round">
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" ng-disabled="!form.$valid" ng-click="createUpdateTask(model)" class="btn btn-danger pull-right">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal modal-danger fade" id="alert-modal" ng-show="showDeadline" padding-right: 17px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Deadline Tasks ! </h4>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Task Title</th>
+                                <th scope="col">Deadline Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="task in deadlineTasks">
+                                <th scope="row">{{task.TaskId}}</th>
+                                <td>{{task.TaskName}}</td>
+                                <td>{{task.TaskTitle}}</td>
+                                <td>{{task.Deadline|date:'MMM d, yyyy'}}</td>
+                            </tr>        
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</div>
+
+
+<script>
+     //Date picker
+    $('#Deadline').datepicker({
+        autoclose: false
+    });
+
+</script>

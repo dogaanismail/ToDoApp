@@ -1,4 +1,5 @@
-﻿
+﻿@using ToDoApp.DataDomain
+@model  IEnumerable<ToDoApp.DataDomain.ViewModels.TasksViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +7,33 @@
 
 <h2>Index</h2>
 
+<div class="col-md-12">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task Name</th>
+                <th scope="col">Task Title</th>
+                <th scope="col">Task Description</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Deadline Date</th>
+                <th scope="col">Is Completed ?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.TaskId</th>
+                    <td>@item.TaskName</td>
+                    <td>@item.TaskTitle</td>
+                    <td>@item.TaskDescription</td>
+                    <td>@item.CreatedDate</td>
+                    <td>@item.Deadline</td>
+                    <td>@item.IsCompleted</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

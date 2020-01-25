@@ -8,5 +8,9 @@
         public const string GetData = "dashboard/getdata";
         #endregion
 
+        #region 
+        public const string GetTasks = "tasks/gettasks";
+        #endregion
+
     }
 }

@@ -102,7 +102,7 @@ namespace ToDoApp.Web.Areas.Admin.Controllers
         public ActionResult LogOff()
         {
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "AdminAccount");
+            return RedirectToAction("Login", "Account");
         }
 
         #endregion
