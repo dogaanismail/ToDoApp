@@ -68,11 +68,7 @@ namespace ToDoApp.Web.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
-            if (!await _userManager.IsEmailConfirmedAsync(user.Id))
-            {
-                ModelState.AddModelError("", "You need to confirm your email.");
-                return View(model);
-            }
+ 
             if (!await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 ModelState.AddModelError("", "Password is wrong !");

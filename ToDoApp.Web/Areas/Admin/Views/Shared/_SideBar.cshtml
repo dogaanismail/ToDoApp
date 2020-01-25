@@ -13,30 +13,43 @@
             </div>
         </div>
 
-        @*<div ng-controller="MenuCtrl">
+        <div>
 
-                <ul class="sidebar-menu">
-                    <li class="header">MAIN NAVIGATION</li>
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
 
-                    <li ng-class="{'treeview': item.PageUrl=='#'}" ng-repeat="item in lstParentMenu | orderBy:'DisplayOrder'">
-                        <a href="~/{{item.PageUrl}}">
-                            <i class="fa {{item.PageIcon}}"></i>
-                            <span>{{item.ModuleName}}</span>
-                            <i ng-if="item.PageUrl=='#'" class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu" ng-repeat="obj in item.Submenu | orderBy:'DisplayOrder'">
-                            <li>
-                                <a href="/{{obj.PageUrl}}">
-                                    <i class="fa {{obj.PageIcon}}"></i>
-                                    {{obj.ModuleName}}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="/Admin/Account/ChangePassword"><i class="fa fa-list-alt"></i>Change Password</a></li>
-                </ul>
+                <li>
+                    <a href="/Dashboard/Index">
+                        <i class="fa fa-circle"></i> <span>Dashboard</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                </li>
 
-            </div>*@
+                <li>
+                    <a href="/Dashboard/Index">
+                        <i class="fa fa-circle"></i> <span>Todo List</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Dashboard/Index">
+                        <i class="fa fa-circle"></i> <span>Users</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Dashboard/Index">
+                        <i class="fa fa-circle"></i> <span>Roles</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                </li>
+
+                <li><a href="/Admin/Account/ChangePassword"><i class="fa fa-list-alt"></i>Change Password</a></li>
+            </ul>
+
+            </div>
 
     </section>
     <!-- /.sidebar -->

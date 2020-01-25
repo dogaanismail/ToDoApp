@@ -8,7 +8,7 @@ namespace ToDoApp.Business.Mappings.AutoMapper.Profiles
     {
         public BusinessProfile()
         {
-            CreateMap<Tasks, TaskDto>();
+            //CreateMap<Tasks, TaskDto>();
         }
     }
 }
