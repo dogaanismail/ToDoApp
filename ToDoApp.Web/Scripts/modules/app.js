@@ -1,4 +1,4 @@
-﻿var app = angular.module("startupController", ['checklist-model', 'ngSanitize', 'ngRoute']);
+﻿var app = angular.module("todoController", ['checklist-model', 'ngSanitize', 'ngRoute']);
 /*
  * AngularJS directive for error in source of images
  */

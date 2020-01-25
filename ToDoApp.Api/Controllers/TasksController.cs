@@ -41,7 +41,7 @@ namespace ToDoApp.Api.Controllers
             return tasks;
         }
 
-        [Route("gettask")]
+        [Route("gettaskbyid")]
         [HttpGet]
         public Tasks GetTaskById(int id)
         {

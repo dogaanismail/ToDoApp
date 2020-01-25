@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using ToDoApp.loC;
+using ToDoApp.Web.Manager;
 
 namespace ToDoApp.Web
 {
@@ -23,7 +24,10 @@ namespace ToDoApp.Web
 
             //Unity Settings
             UnityConfigMvc.RegisterComponents();
-           
+
+            //for API
+            ServiceManager.Init();
+
         }
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Api\TaskApi.cs" />
     <Compile Include="Api\UserApi.cs" />
+    <Compile Include="Dto\DashboardDto.cs" />
     <Compile Include="Dto\TaskDto.cs" />
     <Compile Include="Dto\UsersDto.cs" />
     <Compile Include="Enumerations\StatusEnum.cs" />

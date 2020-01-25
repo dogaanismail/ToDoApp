@@ -6,7 +6,7 @@
 
 <h2>ChangePassword</h2>
 
-<div class="content-wrapper">
+<div class="content-wrapper" ng-controller="DashboardCtrl">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -23,25 +23,12 @@
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3></h3>
-                        <p>Total Employees</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-user-plus"></i>
-                    </div>
-                    <a href="/Admin/Employee/Index?Status=NewUser" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3></h3>
+                        <h3>{{model.TotalUsers}}</h3>
                         <p>Total Users</p>
                     </div>
                     <div class="icon">
@@ -51,31 +38,18 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-green">
-                    <div class="inner">
-                        <h3></h3>
-                        <p>Total Departments</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-home"></i>
-                    </div>
-                    <a href="/Admin/Department/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-blue">
                     <div class="inner">
-                        <h3></h3>
-                        <p>Total Roles</p>
+                        <h3>{{model.TotalTasks}}</h3>
+                        <p>Total Tasks</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-users"></i>
                     </div>
-                    <a href="/Admin/Role/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="/Admin/Task/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

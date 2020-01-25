@@ -1,19 +1,24 @@
-﻿(function () {
-    'use strict';
+﻿
 
-    angular
-        .module('app')
-        .controller('controller', controller);
+//Dashboard Controller
+app.controller('DashboardCtrl', ['$scope', 'dashboardService',
+    function ($scope, dashboardService) {
 
-    controller.$inject = ['$location'];
+        //Initialize data
+        $scope.init = function () {
 
-    function controller($location) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'controller';
+            $scope.model = {
+                TotalUsers: 0,
+                TotalTasks: 0,
+            };
 
-        activate();
+            dashboardService.getData().then(function (result) {
+                console.log(result);
+                $scope.model.TotalUsers = result.data.TotalUsers;
+                $scope.model.TotalTasks = result.data.TotalTasks;
+            });
+        };
 
-        function activate() { }
-    }
-})();
+        $scope.init();
+
+    }]);
