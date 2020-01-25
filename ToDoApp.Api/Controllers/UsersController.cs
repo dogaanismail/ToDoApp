@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ToDoApp.Business.Concrete.IdentityManagers;
 using ToDoApp.Core.Aspects.PostsSharp.CacheAspects;
 using ToDoApp.Core.Aspects.PostsSharp.TransactionAspects;
@@ -14,6 +15,8 @@ using ToDoApp.Entities.Identity.Entities;
 namespace ToDoApp.Api.Controllers
 {
     [RoutePrefix("api/users")]
+    [AllowAnonymous]
+    [EnableCors("*", "*", "*")]
     public class UsersController : ApiController
     {
         #region Ctor
@@ -63,7 +66,7 @@ namespace ToDoApp.Api.Controllers
         [Route("createuser")]
         [HttpPost]
         [TransactionScopeAspect]
-        public async Task<IHttpActionResult> CreateUser([FromBody] UserApi model)
+        public async Task<IHttpActionResult> CreateUser(UserApi model)
         {
             try
             {

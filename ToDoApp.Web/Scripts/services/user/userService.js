@@ -1,7 +1,7 @@
 ﻿angular.module('todoController')
     .service('userService', ['$http', function ($http) {
 
-        var urlBase = 'https://localhost:44387/api/users/';
+        var urlBase = 'https://localhost:44387/api/users/'; 
 
         this.getUsers = function () {
             return $http.get(urlBase + "getusers");
@@ -12,11 +12,11 @@
         };
 
         this.createUser = function (obj) {
-            return $http.post(urlBase + "createuser" + '/' + obj);
+            return $http.post(urlBase + "createuser", obj);
         };
 
         this.updateUser = function (obj) {
-            return $http.post(urlBase + "updateuser" + '/' + obj);
+            return $http.post(urlBase + "updateuser" + '/' , obj);
         };
 
         this.deleteUser = function (id) {
