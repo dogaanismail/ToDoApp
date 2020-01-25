@@ -1,4 +1,6 @@
 ﻿
+                                                /* --------------------------           ANGULARJS CONTROLLERS ------------------------------------------------ */
+
 
 //Dashboard Controller
 app.controller('DashboardCtrl', ['$scope', 'dashboardService',
@@ -12,9 +14,136 @@ app.controller('DashboardCtrl', ['$scope', 'dashboardService',
                 TotalTasks: 0,
             };
 
+            $scope.getDashboardData();
+        };
+
+        $scope.getDashboardData = function () {
             dashboardService.getData().then(function (result) {
                 $scope.model.TotalUsers = result.data.TotalUsers;
                 $scope.model.TotalTasks = result.data.TotalTasks;
+            });
+        };
+
+        $scope.init();
+    }]);
+
+
+//Task Contr0ller
+app.controller('TaskCtrl', ['$scope', 'taskService',
+    function ($scope, taskService) {
+
+        //Initialize data
+        $scope.init = function () {
+
+            $scope.model = {
+                TaskId: 0,
+                TaskName: '',
+                TaskTitle: '',
+                TaskDescription: '',
+                Deadline: null,
+                CreatedDate: null
+            };
+
+            $scope.message = "";
+            //for display message of user   
+            $scope.flgMessage = false;
+            $scope.getTasks();        
+        };
+
+        //hide message
+        $scope.hideMessage = function () {
+            //make message flg false for hide message
+            $scope.flgMessage = false;
+            $("#message").removeClass("alert alert-success").removeClass("alert alert-danger");
+            $("#icon").removeClass("fa-check").removeClass("fa-ban");
+
+            $scope.flgMessage1 = false;
+            $("#message1").removeClass("alert alert-success").removeClass("alert alert-danger");
+            $("#icon1").removeClass("fa-check").removeClass("fa-ban");
+        };
+
+        $scope.getTasks = function () {
+            taskService.getTasks().then(function (result) {
+                $scope.lstTasks = result.data;
+                console.log(result);
+            });
+        };
+
+        //Reset data
+        $scope.reset = function () {
+            $scope.model = {
+                TaskId: 0,
+                TaskName: '',
+                TaskTitle: '',
+                TaskDescription: '',
+                Deadline: null,
+                CreatedDate: null
+            };
+        };
+
+        //Create Task
+        $scope.createTask = function (obj) {
+            $scope.hideMessage();
+
+            taskService.createTask(obj).then(function (result) {
+                if (result.data === 200) {
+                    $scope.flgMessage = true;
+                    $scope.message = "Task has been created successfully !";
+                    $("#message").addClass("alert alert-success");
+                    $("#icon").addClass("glyphicon glyphicon-ok");
+                    $scope.getTasks();
+                    $scope.reset();
+                }
+                else {
+                    $scope.flgMessage = true;
+                    $scope.message = result.data.message;
+                    $("#message").addClass("alert alert-danger");
+                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                }
+            });
+        };
+
+        //Update Task
+        $scope.updateTask = function (obj) {
+            $scope.hideMessage();
+
+            taskService.updateTask(obj).then(function (result) {
+                if (result.data === 200) {
+                    $scope.flgMessage = true;
+                    $scope.message = "Task has been updated successfully !";
+                    $("#message").addClass("alert alert-success");
+                    $("#icon").addClass("glyphicon glyphicon-ok");
+                    $scope.getTasks();
+                    $scope.reset();
+                }
+                else {
+                    $scope.flgMessage = true;
+                    $scope.message = result.data.message;
+                    $("#message").addClass("alert alert-danger");
+                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                }
+            });
+        };
+
+        //Delete Task
+        $scope.deleteTask = function (obj) {
+            $scope.hideMessage();
+
+            taskService.deleteTask(obj).then(function (result) {
+                if (result.data === 200) {
+                    $scope.flgMessage = true;
+                    $scope.message = "Task has been deleted successfully !";
+                    $("#message").addClass("alert alert-success");
+                    $("#icon").addClass("glyphicon glyphicon-ok");
+                    $scope.getTasks();
+                    $scope.reset();
+                }
+                else {
+                    $scope.flgMessage = true;
+                    $scope.message = result.data.message;
+                    $("#message").addClass("alert alert-danger");
+                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                }
             });
         };
 
@@ -68,7 +197,7 @@ app.controller('UserCtrl', ['$scope', 'userService',
             $("#icon1").removeClass("fa-check").removeClass("fa-ban");
         };
 
-        //GetAllEmployee
+        //GetAllUsers
         $scope.getAllUser = function () {
             var table = $("#userTable").DataTable();
             table.clear();
@@ -121,13 +250,19 @@ app.controller('UserCtrl', ['$scope', 'userService',
             $scope.hideMessage();
 
             if ($scope.showCreate === true) {
-                console.log(obj);
-                obj.Password = "1233345";
-                obj.Id = "12244325";
-                userService.createUser( obj).then(function (result) {
-                        if (result.data.success === 1) {
+                //Check password and confirm password is same
+                if (obj.Password !== obj.CPassword) {
+                    $scope.flgMessage = true;
+                    $scope.message = "Password and Confirm Password must be same.";
+                    $("#message").addClass("alert alert-danger");
+                    $("#icon").addClass("glyphicon glyphicon-warning-sign");
+                }
+                else {
+                    userService.createUser(obj).then(function (result) {
+                        console.log(result);
+                        if (result.data === 200) {
                             $scope.flgMessage = true;
-                            $scope.message = result.data.message;
+                            $scope.message = "User has been created successfully !";
                             $("#message").addClass("alert alert-success");
                             $("#icon").addClass("glyphicon glyphicon-ok");
                             $scope.getAllUser();
@@ -140,12 +275,13 @@ app.controller('UserCtrl', ['$scope', 'userService',
                             $("#icon").addClass("glyphicon glyphicon-warning-sign ");
                         }
                     });
+                }
             }
             else {
                 userService.updateUser(obj).then(function (result) {
-                    if (result.data.success === 1) {
+                    if (result.data === 200) {
                         $scope.flgMessage = true;
-                        $scope.message = result.data.message;
+                        $scope.message = "User has been updated successfully !";
                         $("#message").addClass("alert alert-success");
                         $("#icon").addClass("glyphicon glyphicon-ok");
                         $scope.getAllUser();
@@ -165,13 +301,11 @@ app.controller('UserCtrl', ['$scope', 'userService',
         //Delete User
         $scope.deleteUser = function (obj) {
             $scope.hideMessage();
-            params = {
-                id: obj.Id
-            }
+
             userService.deleteUser(obj).then(function (result) {
-                if (result.data.success === 1) {
+                if (result.data === 200) {
                     $scope.flgMessage = true;
-                    $scope.message = result.data.message;
+                    $scope.message = "User has been deleted successfully !";
                     $("#message").addClass("alert alert-success");
                     $("#icon").addClass("glyphicon glyphicon-ok");
                     $scope.getAllUser();
@@ -215,7 +349,7 @@ app.controller('UserCtrl', ['$scope', 'userService',
                 UserName: '',
                 Password: '',
             };
-                $("#liTab_2").removeClass("active");
+            $("#liTab_2").removeClass("active");
             $("#tab_2").removeClass("active");
             $("#liTab_1").addClass("active");
             $("#tab_1").addClass("active");

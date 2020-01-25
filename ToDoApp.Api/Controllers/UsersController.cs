@@ -65,15 +65,14 @@ namespace ToDoApp.Api.Controllers
 
         [Route("createuser")]
         [HttpPost]
-        [TransactionScopeAspect]
-        public async Task<IHttpActionResult> CreateUser(UserApi model)
+        public async Task<IHttpActionResult> CreateUser([FromBody]UserApi model)
         {
             try
             {
                 User newUser = new User
                 {
                     UserName = model.UserName,
-                    Email = model.UserName
+                    Email = model.Email
                 };
 
                 //Creates a user without no password.
@@ -107,13 +106,12 @@ namespace ToDoApp.Api.Controllers
 
 
         [Route("deleteuser")]
-        [HttpDelete]
-        [TransactionScopeAspect]
-        public async Task<IHttpActionResult> DeleteUser(string userId)
+        [HttpPost]
+        public async Task<IHttpActionResult> DeleteUser([FromBody]UserApi model)
         {
             try
             {
-                var getUser = await _userManager.FindByIdAsync(userId);
+                var getUser = await _userManager.FindByIdAsync(model.Id);
                 var result = await _userManager.DeleteAsync(getUser);
                 if (result.Succeeded)
                 {
@@ -134,7 +132,6 @@ namespace ToDoApp.Api.Controllers
 
         [Route("updateUser")]
         [HttpPost]
-        [TransactionScopeAspect]
         public async Task<IHttpActionResult> UpdateUser([FromBody] UserApi model)
         {
             try

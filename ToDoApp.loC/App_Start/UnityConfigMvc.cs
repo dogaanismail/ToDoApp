@@ -36,6 +36,8 @@ namespace ToDoApp.loC
         }
         public static void RegisterTypes(IUnityContainer container)
         {
+            /* DEPENDENCY INJECTION FOR ASP.NET IDENTITY */
+
             /* For more information about these implementations please 
              * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
 

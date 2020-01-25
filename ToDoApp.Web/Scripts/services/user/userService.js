@@ -19,8 +19,8 @@
             return $http.post(urlBase + "updateuser" + '/' , obj);
         };
 
-        this.deleteUser = function (id) {
-            return $http.delete(urlBase + "deleteUser" + '/' + id);
+        this.deleteUser = function (obj) {
+            return $http.post(urlBase + "deleteUser" + '/' , obj);
         };
 
     }]);

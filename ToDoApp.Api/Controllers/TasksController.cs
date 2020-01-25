@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ToDoApp.Business.Abstract;
 using ToDoApp.Core.Utilities.Mappings;
 using ToDoApp.DataDomain.Api;
@@ -12,6 +13,8 @@ using ToDoApp.Entities.EntityFramework;
 namespace ToDoApp.Api.Controllers
 {
     [RoutePrefix("api/tasks")]
+    [AllowAnonymous]
+    [EnableCors("*", "*", "*")]
     public class TasksController : ApiController
     {
         #region Ctor
@@ -72,7 +75,7 @@ namespace ToDoApp.Api.Controllers
             {
                 return BadRequest(ex.Message.ToString());
             }
-               
+
         }
 
         [Route("updatetask")]
@@ -98,12 +101,12 @@ namespace ToDoApp.Api.Controllers
         }
 
         [Route("deletetask")]
-        [HttpDelete]
-        public IHttpActionResult DeleteTask(int id)
+        [HttpPost]
+        public IHttpActionResult DeleteTask([FromBody] TaskApi model)
         {
             try
             {
-                Tasks getTask = _taskService.GetById(id);
+                Tasks getTask = _taskService.GetById(model.TaskId);
                 _taskService.Delete(getTask);
                 return Ok(200);
             }

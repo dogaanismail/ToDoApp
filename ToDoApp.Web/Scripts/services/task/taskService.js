@@ -12,15 +12,15 @@
         };
 
         this.createTask = function (obj) {
-            return $http.post(urlBase + "createtask" + '/' + obj);
+            return $http.post(urlBase + "createtask" + '/', obj);
         };
 
         this.updateTask = function (obj) {
-            return $http.post(urlBase + "updatetask" + '/' + obj);
+            return $http.post(urlBase + "updatetask" + '/', obj);
         };
 
-        this.deleteTask = function (id) {
-            return $http.delete(urlBase + "deletetask" + '/' + id);
+        this.deleteTask = function (obj) {
+            return $http.delete(urlBase + "deletetask" + '/', obj);
         };
 
     }]);

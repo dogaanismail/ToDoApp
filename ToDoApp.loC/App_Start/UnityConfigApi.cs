@@ -13,7 +13,7 @@ using ToDoApp.Entities.Identity.Entities;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
-using Unity.WebApi;
+
 
 namespace ToDoApp.loC
 {
@@ -22,6 +22,13 @@ namespace ToDoApp.loC
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
+
+
+            /* DEPENDENCY INJECTION FOR ASP.NET IDENTITY */
+
+            /* For more information about these implementations please 
+          * check out my website https://ismaildogaan.com/2019/08/15/asp-net-mvc-identity-icin-unity-dependency-injection-konfigurasyonu/ */
+
 
             container.RegisterType<IdentityContext>(new PerRequestLifetimeManager());
             container.RegisterType<ApplicationSignInManager>(new PerRequestLifetimeManager());

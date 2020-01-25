@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="content-wrapper" ng-controller="TaskCtrl">
+            <section class="content-header">
+                <h1>
+                    Application Tasks
+                </h1>
+                <div class="text-right">
+                    <a href="/Admin/Dashboard/Index"><i class="fa fa-dashboard"></i> Home</a> >
+                    <a href="/Admin/Task/Index"> ToDo List</a>
+                    
+                </div>
+
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+
+                    <div ng-show="flgMessage" id="message" class="alert alert-dismissible">
+                        <button type="button" class="close" ng-click="hideMessage()" aria-hidden="true">&times;</button>
+                        <h4><i id="icon" class="icon fa "></i> Alert!</h4>
+                        {{message}}
+                    </div>
+
+                    <!-- TO DO List -->
+                    <div class="box box-primary" style="position: relative; left: 0px; top: 0px;">
+                        <div class="box-header ui-sortable-handle" style="cursor: move;">
+                            <i class="ion ion-clipboard"></i>
+
+                            <h3 class="box-title">To Do List</h3>
+
+                            <div class="box-tools pull-right">
+                                <ul class="pagination pagination-sm inline">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+                            <ul class="todo-list ui-sortable">
+                                <li ng-repeat="task in lstTasks">
+                                    <span class="handle ui-sortable-handle">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </span>
+                                    <input type="checkbox" value="">
+                                    <span class="text">{{task.TaskTitle}}</span>
+                                    <small class="label label-info"><i class="fa fa-clock"></i> {{task.Deadline|date:'MMM d, yyyy'}}</small>
+                                    <div class="tools">
+                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix no-border">
+                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+            </section>
+            <!-- /.content -->
+        </div>
+
+

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ToDoApp.Business.Abstract;
 using ToDoApp.Business.Concrete.IdentityManagers;
 using ToDoApp.DataDomain.Dto;
@@ -7,6 +8,8 @@ using ToDoApp.DataDomain.Dto;
 namespace ToDoApp.Api.Controllers
 {
     [RoutePrefix("api/dashboard")]
+    [AllowAnonymous]
+    [EnableCors("*", "*", "*")]
     public class DashboardController : ApiController
     {
         #region Ctor
