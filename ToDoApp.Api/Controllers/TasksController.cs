@@ -64,7 +64,7 @@ namespace ToDoApp.Api.Controllers
         {
             var result = _taskService.GetTasks().Where(x => x.Deadline.Value.Year == DateTime.Now.Year
             && x.Deadline.Value.Month == DateTime.Now.Month
-            && x.Deadline.Value.Year == DateTime.Now.Year && x.IsCompleted == false).ToList();
+            && x.Deadline.Value.Day == DateTime.Now.Day && x.IsCompleted == false).ToList();
 
             if (result.Count > 0)
             {

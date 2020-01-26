@@ -52,16 +52,16 @@
                 <div class="box-body">
                     <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
                     <ul class="todo-list ui-sortable">
-                        <li ng-repeat="task in lstTasks">
+                        <li ng-repeat="task in lstTasks" ng-class="{'done': task.IsCompleted}">
                             <span class="handle ui-sortable-handle">
                                 <i class="fa fa-ellipsis-v"></i>
                                 <i class="fa fa-ellipsis-v"></i>
                             </span>
-                            <input type="checkbox" value="">
                             <span class="text">{{task.TaskTitle}}</span>
                             <small class="label label-info"><i class="fa fa-clock"></i> {{task.Deadline|date:'MMM d, yyyy'}}</small>
+                            <label class="label label-success" style="background:#00ff21 !important" ng-show="task.IsCompleted"><i class="fa fa-ok"></i> Task has been done !</label>
                             <div class="tools">
-                                <i class="fa fa-edit" data-target="#modal-default" data-toggle="modal" ng-click="editTask(task)"></i>
+                                <i class="fa fa-edit"  ng-click="editTask(task)"></i>
                                 <i class="fa fa-trash" ng-click="deleteTask(task)"></i>
                             </div>
                         </li>
@@ -69,7 +69,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix no-border">
-                    <button type="button" data-target="#modal-default" data-toggle="modal" ng-click="insertTask()" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                    <button type="button" ng-click="insertTask()" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
                 </div>
             </div>
             <!-- /.card -->
@@ -148,7 +148,7 @@
     </div>
 
 
-    <div class="modal modal-danger fade" id="alert-modal" ng-show="showDeadline" padding-right: 17px;">
+    <div class="modal modal-danger fade" id="alert-modal" padding-right: 17px;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -174,7 +174,7 @@
                                 <td>{{task.TaskName}}</td>
                                 <td>{{task.TaskTitle}}</td>
                                 <td>{{task.Deadline|date:'MMM d, yyyy'}}</td>
-                            </tr>        
+                            </tr>
                         </tbody>
                     </table>
 

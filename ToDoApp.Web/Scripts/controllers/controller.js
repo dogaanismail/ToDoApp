@@ -89,8 +89,10 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
         $scope.checkDeadlineTask = function () {
             taskService.checkTasks().then(function (result) {
                 $scope.deadlineTasks = result.data;
-                $('#alert-modal').modal();
-                $scope.showDeadline = true;
+                if ($scope.deadlineTasks.length > 0) {
+                    $('#alert-modal').modal();
+                }
+               
             });
         };
 
@@ -109,6 +111,8 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
                         $("#icon").addClass("glyphicon glyphicon-ok");
                         $scope.getTasks();
                         $scope.reset();
+                        $('#modal-default').modal('hide');
+                        $('#alert-modal').modal('hide');
                     }
                     else {
                         $scope.flgMessage = true;
@@ -127,6 +131,8 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
                         $("#icon").addClass("glyphicon glyphicon-ok");
                         $scope.getTasks();
                         $scope.reset();
+                        $('#modal-default').modal('hide');
+                        $('#alert-modal').modal('hide');
                     }
                     else {
                         $scope.flgMessage = true;
@@ -149,12 +155,14 @@ app.controller('TaskCtrl', ['$scope', 'taskService',
             $scope.showCreate = false;
             $scope.showEdit = true;
             $scope.UserState = "> Update a task";
+            $('#modal-default').modal();
         };
 
         $scope.insertTask = function () {
             $scope.showCreate = true;
             $scope.showEdit = false;
             $scope.UserState = "> Create a task";
+            $('#modal-default').modal();
         };
 
         //Delete Task
