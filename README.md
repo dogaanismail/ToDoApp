@@ -1,16 +1,19 @@
 # ToDoApp :bookmark_tabs: :clipboard: :memo:
 
 ## Application Admin Informations
-*** ***username: admin
-*** ***password: 123qwe123qwe
+******username: admin&nbsp;
+******password: 123qwe123qwe
 
-## Application Web Api Link
+## Application Web Api Link :link:
 [Application Web Api Link](https://todoappapi20200126020445.azurewebsites.net/api/users/getusers)
 
-## Application Admin Panel Link
+## Application Admin Panel Link :link:
 [Application Admin Panel Link](https://todoappweb20200126022612.azurewebsites.net/admin)
 
-# Screenshots
+## Application PublicUI Link :link:
+[Application Admin Panel Link](https://todoappweb20200126022612.azurewebsites.net)
+
+# Screenshots :camera:
 
 ![alt text](Screenshots/Screenshot_22.png)
 ![alt text](Screenshots/Screenshot_23.png)
