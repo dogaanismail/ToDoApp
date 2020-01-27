@@ -24,6 +24,7 @@ namespace ToDoApp.Api.Controllers
 
         #endregion
 
+        #region CRUD
         [Route("getdata")]
         [HttpGet]
         public DashboardDto GetData()
@@ -36,5 +37,7 @@ namespace ToDoApp.Api.Controllers
 
             return dto;
         }
+
+        #endregion
     }
 }

@@ -29,6 +29,8 @@ namespace ToDoApp.Api.Controllers
 
         #endregion
 
+        #region CRUD
+
         [Route("gettasks")]
         [HttpGet]
         [CacheAspect(typeof(MemoryCacheManager), 30)]
@@ -148,5 +150,7 @@ namespace ToDoApp.Api.Controllers
             }
 
         }
+
+        #endregion
     }
 }
