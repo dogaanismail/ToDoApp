@@ -11,7 +11,7 @@
 [Application Admin Panel Link](https://todoappweb20200126022612.azurewebsites.net/admin)
 
 ## Application PublicUI Link :link:
-[Application Admin Panel Link](https://todoappweb20200126022612.azurewebsites.net)
+[Application PublicUI Link](https://todoappweb20200126022612.azurewebsites.net)
 
 # Screenshots :camera:
 
